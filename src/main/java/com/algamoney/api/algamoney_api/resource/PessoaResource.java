@@ -20,6 +20,7 @@ import com.algamoney.api.algamoney_api.model.Pessoa;
 import com.algamoney.api.algamoney_api.repository.PessoaRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/pessoas")
@@ -35,7 +36,7 @@ public class PessoaResource {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<Pessoa> criar(@RequestBody Pessoa pessoa, HttpServletResponse response) {
+  public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
     Pessoa pessoaSalva = pessoaRepository.save(pessoa);
     // vai criar no headers, a location (codigo para consultas rapidas)
     URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
